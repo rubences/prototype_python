@@ -1,5 +1,59 @@
 import copy
 
+class Prototype:
+    """
+    The example class that has cloning ability. We'll see how the values of field
+    with different types will be cloned.
+    """
+
+    def __init__(self):
+        self._primitive = None
+        self._component = None
+        self._circular_reference = None
+
+class ComponentWithBackReference:
+    def __init__(self, prototype):
+        self._prototype = prototype
+
+    def set_parent(self, parent):
+        """
+        Instead of copying the parent object inside of the component, the most
+        common approach is to pass it to the component via one of its methods.
+        """
+        self.parent = parent
+
+
+
+    @property
+    def primitive(self):
+        return self._primitive
+
+    @primitive.setter
+    def primitive(self, value):
+        self._primitive = value
+
+    @property
+    def component(self):
+        return self._component
+
+    @component.setter
+    def component(self, value):
+        self._component = value
+
+    @property
+    def circular_reference(self):
+        return self._circular_reference
+
+    @circular_reference.setter
+    def circular_reference(self, value):
+        self._circular_reference = value
+
+    def clone(self):
+        """
+        Delegating cloning process to `copy.deepcopy` function. Returns a copy of
+        the object.
+        """
+        return copy.deepcopy(self)
 
 
 class SelfReferencingEntity:
