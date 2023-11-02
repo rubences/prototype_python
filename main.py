@@ -12,15 +12,17 @@ class Prototype:
         self._circular_reference = None
 
 class ComponentWithBackReference:
-    def __init__(self, prototype):
-        self._prototype = prototype
+    class SelfReferencingEntity:
+        def __init__(self, prototype=None):
+            self.parent = None
+            self.prototype = prototype
 
-    def set_parent(self, parent):
-        """
-        Instead of copying the parent object inside of the component, the most
-        common approach is to pass it to the component via one of its methods.
-        """
-        self.parent = parent
+        def set_parent(self, parent):
+            """
+            Instead of copying the parent object inside of the component, the most
+            common approach is to pass it to the component via one of its methods.
+            """
+            self.parent = parent
 
 
 
@@ -212,3 +214,5 @@ if __name__ == "__main__":
         "^^ This shows that deepcopied objects contain same reference, they "
         "are not cloned repeatedly."
     )
+
+    print("")
